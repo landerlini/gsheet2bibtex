@@ -1,13 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import json
 import os
 from fastapi.responses import PlainTextResponse
 import urllib, urllib.request
 import csv
+import uuid
 import logging
 
 BASE_URL = os.getenv("BASE_URL", "/")
 DEBUG = os.getenv("DEBUG", "false").lower() in ["1", "true", "yes"]
+API_TOKEN = os.getenv("API_TOKEN", uuid.uuid4())
+logging.info(f"Using API_TOKEN={API_TOKEN}")
+
 app = FastAPI(root_path=BASE_URL)
 
 logging.basicConfig(
@@ -94,5 +98,7 @@ def generate_bibtex(spreadsheet_id: str) -> str:
     return "\n\n".join(ret)
 
 @app.get(BASE_URL + "{gsheet_id}.csv", response_class=PlainTextResponse)
-async def read_root(gsheet_id: str):
+async def read_root(gsheet_id: str, token: str = None):
+    if API_TOKEN and token != API_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid or missing API token")
     return generate_bibtex(gsheet_id)

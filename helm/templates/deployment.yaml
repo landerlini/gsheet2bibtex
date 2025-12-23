@@ -23,3 +23,5 @@ spec:
           env:
             - name: BASE_URL
               value: {{ .Values.env.BASE_URL | quote }}
+            - name: API_TOKEN
+              value: {{ .Values.apiToken | quote }}

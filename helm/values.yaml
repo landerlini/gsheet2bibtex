@@ -8,6 +8,16 @@ service:
   port: 80
   targetPort: 8000
 
+image:
+  repository: ghcr.io/your-username/your-repo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
 ingress:
   enabled: true
   className: ""
@@ -19,7 +29,4 @@ ingress:
           pathType: Prefix
   tls: []
 
-replicaCount: 1
-
-env:
-  BASE_URL: /
+apiToken: "your-secure-api-token-here"
