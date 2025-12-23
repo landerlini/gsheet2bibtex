@@ -97,7 +97,7 @@ def generate_bibtex(spreadsheet_id: str) -> str:
     
     return "\n\n".join(ret)
 
-@app.get(BASE_URL + "{gsheet_id}.csv", response_class=PlainTextResponse)
+@app.get(BASE_URL + "/{gsheet_id}.csv", response_class=PlainTextResponse)
 async def read_root(gsheet_id: str, token: str = None):
     if API_TOKEN and token != API_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid or missing API token")
