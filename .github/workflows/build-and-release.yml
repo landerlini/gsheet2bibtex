@@ -29,7 +29,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
+        tags: ghcr.io/${{ github.repository }}/server:latest
 
     - name: Set up Helm
       uses: azure/setup-helm@v4
