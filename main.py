@@ -10,7 +10,6 @@ import logging
 BASE_URL = os.getenv("BASE_URL", "/")
 DEBUG = os.getenv("DEBUG", "false").lower() in ["1", "true", "yes"]
 API_TOKEN = os.getenv("API_TOKEN", uuid.uuid4())
-logging.info(f"Using API_TOKEN={API_TOKEN}")
 
 app = FastAPI(root_path=BASE_URL)
 
@@ -18,6 +17,7 @@ logging.basicConfig(
     level=logging.DEBUG if DEBUG else logging.INFO,
     format='%(asctime)15s | %(name)15s | %(levelname)8s | %(message)s'
     )
+logging.info(f"Using API_TOKEN={API_TOKEN}")
 
 def urllib_get(url: str, timeout: int = 10):
     """
